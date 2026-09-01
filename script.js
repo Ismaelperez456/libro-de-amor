@@ -148,13 +148,17 @@ function updatePages() {
         const isMobile = window.innerWidth <= 600;
         
         if (isMobile) {
-            // En celular se mantiene centrado en todo momento, incluida la contraportada
+            // En celulares el libro no se desplaza lateralmente
             book.style.transform = "translateX(0%)";
         } else {
-            // En pantallas grandes se desplaza como libro abierto
-            if (currentLocation === 0) book.style.transform = "translateX(0%)";
-            else if (currentLocation >= TOTAL_PAGES) book.style.transform = "translateX(50%)";
-            else book.style.transform = "translateX(50%)";
+            // En pantallas grandes (escritorio)
+            if (currentLocation === 0) {
+                book.style.transform = "translateX(0%)";
+            } else if (currentLocation === TOTAL_PAGES) {
+                book.style.transform = "translateX(100%)";
+            } else {
+                book.style.transform = "translateX(50%)";
+            }
         }
     }
 }

@@ -416,27 +416,26 @@ button:disabled { opacity: .5; cursor: not-allowed; }
         overflow: hidden;
     }
 
-    /* Oculta suavemente las páginas ya volteadas para evitar que sobresalgan por la izquierda */
-    @media (max-width: 600px) {
-    :root {
-        --book-width: clamp(260px, 82vw, 320px);
-        --book-height: clamp(380px, 64vh, 460px);
-    }
-
-    .scene {
-        overflow: hidden;
-    }
-
-    /* Oculta las páginas intermedias volteadas, excepto la última (contraportada) */
+    /* Oculta las páginas intermedias volteadas para evitar desbordes */
     .paper.flipped:not(#p10) {
         opacity: 0;
         pointer-events: none;
     }
 
-    /* La última página permanece visible y centrada al voltearse */
+    /* La página 10 / contraportada se muestra centrada al voltearse */
     #p10.flipped {
         opacity: 1;
         pointer-events: auto;
+        transform: rotateY(0deg) !important;
+    }
+
+    #p10.flipped .back {
+        z-index: 10;
+        transform: rotateY(0deg) !important;
+    }
+
+    #p10.flipped .front {
+        display: none;
     }
 
     .cover h2 { font-size: 18px; }
@@ -444,5 +443,4 @@ button:disabled { opacity: .5; cursor: not-allowed; }
     .cover p, .page-content p { font-size: 10.5px; }
     .controls { gap: 6px; }
     button { padding: 8px 12px; font-size: 11px; }
-}
 }
