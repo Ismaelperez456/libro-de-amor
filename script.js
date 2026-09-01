@@ -14,6 +14,7 @@ const musicText = document.getElementById("music-text");
 const welcomeScreen = document.getElementById("welcome-screen");
 const startBtn = document.getElementById("start-btn");
 const themeToggle = document.getElementById("theme-toggle");
+const fullscreenBtn = document.getElementById("fullscreen-btn");
 const heartsContainer = document.getElementById("hearts-container");
 
 if (music) {
@@ -38,36 +39,49 @@ let currentLocation = 0;
 let isAnimating = false;
 
 /* =========================
-   📖 PORTADA INICIAL
+   🖥️ CONTROL DE PANTALLA COMPLETA
 ========================= */
+function toggleFullScreen() {
+    const doc = window.document;
+    const docEl = doc.documentElement;
 
-function setInitialCover() {
-    currentLocation = 0;
-    isAnimating = false;
+    const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
 
-    papers.forEach((paper, index) => {
-        if (!paper) return;
+    const isFullScreen = doc.fullscreenElement || doc.mozFullScreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement;
 
-        paper.classList.remove("flipped");
-        paper.style.zIndex = TOTAL_PAGES - index;
-    });
-
-    if (book) {
-        book.style.transform = "translateX(0%)";
-    }
-
-    if (counter) {
-        counter.textContent = `0 / ${TOTAL_PAGES}`;
-    }
-
-    if (prevBtn) {
-        prevBtn.disabled = true;
-    }
-
-    if (nextBtn) {
-        nextBtn.disabled = false;
+    if (!isFullScreen) {
+        if (requestFullScreen) {
+            requestFullScreen.call(docEl).catch(err => {
+                console.log("Pantalla completa no disponible o denegada:", err);
+            });
+        }
+    } else {
+        if (cancelFullScreen) {
+            cancelFullScreen.call(doc);
+        }
     }
 }
+
+function updateFullscreenUI() {
+    const isFullScreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+    if (fullscreenBtn) {
+        fullscreenBtn.textContent = isFullScreen ? "✕" : "⛶";
+        fullscreenBtn.setAttribute("title", isFullScreen ? "Salir de pantalla completa" : "Pantalla completa");
+    }
+}
+
+if (fullscreenBtn) {
+    fullscreenBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleFullScreen();
+    });
+}
+
+document.addEventListener("fullscreenchange", updateFullscreenUI);
+document.addEventListener("webkitfullscreenchange", updateFullscreenUI);
+document.addEventListener("mozfullscreenchange", updateFullscreenUI);
+document.addEventListener("MSFullscreenChange", updateFullscreenUI);
 
 /* =========================
    🎵 MÚSICA CONTINUA
@@ -101,16 +115,22 @@ function asegurarMusica() {
 
 if (startBtn) {
     startBtn.addEventListener("click", () => {
-        setInitialCover();
         asegurarMusica();
+
+        // Solicitar pantalla completa automáticamente al ingresar
+        const doc = window.document;
+        const isFullScreen = doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement;
+        if (!isFullScreen) {
+            const requestFS = doc.documentElement.requestFullscreen || doc.documentElement.webkitRequestFullScreen || doc.documentElement.mozRequestFullScreen || doc.documentElement.msRequestFullscreen;
+            if (requestFS) {
+                requestFS.call(doc.documentElement).catch(() => {});
+            }
+        }
 
         if (welcomeScreen) {
             welcomeScreen.style.opacity = "0";
             welcomeScreen.style.pointerEvents = "none";
-
-            setTimeout(() => {
-                welcomeScreen.style.display = "none";
-            }, 500);
+            setTimeout(() => { welcomeScreen.style.display = "none"; }, 500);
         }
     });
 }
@@ -145,25 +165,11 @@ function updatePages() {
     });
 
     if (book) {
-        const isMobile = window.innerWidth <= 600;
-        
-        if (isMobile) {
-            // En celulares el libro no se desplaza lateralmente
-            book.style.transform = "translateX(0%)";
-        } else {
-            // En pantallas grandes (escritorio)
-            if (currentLocation === 0) {
-                book.style.transform = "translateX(0%)";
-            } else if (currentLocation === TOTAL_PAGES) {
-                book.style.transform = "translateX(100%)";
-            } else {
-                book.style.transform = "translateX(50%)";
-            }
-        }
+        if (currentLocation === 0) book.style.transform = "translateX(0%)";
+        else if (currentLocation >= TOTAL_PAGES) book.style.transform = "translateX(50%)";
+        else book.style.transform = "translateX(50%)";
     }
 }
-
-window.addEventListener("resize", updatePages);
 
 function finishAnimation() {
     isAnimating = false;
@@ -191,6 +197,7 @@ function prevPage() {
 if (nextBtn) nextBtn.addEventListener("click", nextPage);
 if (prevBtn) prevBtn.addEventListener("click", prevPage);
 
+// Navegación por clics directos y teclado
 papers.forEach((paper, index) => {
     if (!paper) return;
     paper.addEventListener("click", (e) => {
@@ -245,66 +252,6 @@ function handleSwipe() {
 }
 
 /* =========================
-   ⛶ MODO PANTALLA COMPLETA (FULLSCREEN)
-========================= */
-const fullscreenBtn = document.getElementById("fullscreen-btn");
-const fullscreenIcon = document.getElementById("fullscreen-icon");
-
-function toggleFullscreen() {
-    const doc = document.documentElement;
-
-    const isFullscreen = document.fullscreenElement || 
-                         document.webkitFullscreenElement || 
-                         document.mozFullScreenElement || 
-                         document.msFullscreenElement;
-
-    if (!isFullscreen) {
-        if (doc.requestFullscreen) {
-            doc.requestFullscreen();
-        } else if (doc.webkitRequestFullscreen) {
-            doc.webkitRequestFullscreen();
-        } else if (doc.mozRequestFullScreen) {
-            doc.mozRequestFullScreen();
-        } else if (doc.msRequestFullscreen) {
-            doc.msRequestFullscreen();
-        }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
-    }
-}
-
-function updateFullscreenIcon() {
-    const isFullscreen = document.fullscreenElement || 
-                         document.webkitFullscreenElement || 
-                         document.mozFullScreenElement || 
-                         document.msFullscreenElement;
-
-    if (fullscreenIcon) {
-        fullscreenIcon.textContent = isFullscreen ? "🗗" : "⛶";
-    }
-}
-
-if (fullscreenBtn) {
-    fullscreenBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleFullscreen();
-    });
-}
-
-document.addEventListener("fullscreenchange", updateFullscreenIcon);
-document.addEventListener("webkitfullscreenchange", updateFullscreenIcon);
-document.addEventListener("mozfullscreenchange", updateFullscreenIcon);
-document.addEventListener("MSFullscreenChange", updateFullscreenIcon);
-
-/* =========================
    🌙 MODO NOCHE / DÍA
 ========================= */
 if (themeToggle) {
@@ -335,7 +282,7 @@ function createFloatingHeart() {
 setInterval(createFloatingHeart, 1100);
 
 /* =========================
-   💌 CARTA MÁQUINA DE ESCRIBIR
+   💌 CARTA MÁQUINA DE ESCRIBIR (ENFOQUE DISTANCIA)
 ========================= */
 const envelope = document.getElementById("envelope");
 const typewriterText = document.getElementById("typewriter-text");
@@ -473,3 +420,48 @@ function checkAllSecrets() {
 if (closeModal && secretModal) {
     closeModal.addEventListener("click", () => secretModal.classList.remove("show"));
 }
+
+/* =========================
+   💌 GRAN FINAL CINEMATOGRÁFICO (PÁGINA 10)
+========================= */
+const finalSurpriseBtn = document.getElementById("final-surprise-btn");
+const surpriseModal = document.getElementById("surprise-modal");
+const closeSurpriseModal = document.getElementById("close-surprise-modal");
+
+function abrirSorpresaFinal(e) {
+    if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    if (surpriseModal) {
+        surpriseModal.classList.add("show");
+        for (let i = 0; i < 20; i++) {
+            setTimeout(createFloatingHeart, i * 120);
+        }
+    }
+}
+
+if (finalSurpriseBtn) {
+    finalSurpriseBtn.addEventListener("click", abrirSorpresaFinal);
+    finalSurpriseBtn.addEventListener("touchend", abrirSorpresaFinal);
+}
+
+if (closeSurpriseModal && surpriseModal) {
+    closeSurpriseModal.addEventListener("click", (e) => {
+        e.stopPropagation();
+        surpriseModal.classList.remove("show");
+    });
+}
+
+// Cierre global de modales haciendo clic fuera del contenido
+window.addEventListener("click", (e) => {
+    if (e.target.classList.contains("secret-modal")) {
+        e.target.classList.remove("show");
+    }
+});
+
+window.addEventListener("load", () => {
+    updatePages();
+    updateMusicUI();
+    updateFullscreenUI();
+});

@@ -42,45 +42,45 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* 🌙 BOTÓN TEMA */
-.theme-btn {
+/* 🎛️ BOTONES SUPERIORES (TEMA Y FULLSCREEN) */
+.top-controls {
     position: fixed;
     top: 12px;
     right: 12px;
     z-index: 9999;
-    background: rgba(255, 255, 255, 0.88);
-    border: none;
-    font-size: 18px;
-    padding: 8px 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    backdrop-filter: blur(5px);
-    transition: transform 0.2s ease;
+    display: flex;
+    gap: 8px;
 }
-.theme-btn:hover { transform: scale(1.1); }
 
-/* ⛶ BOTÓN PANTALLA COMPLETA */
-.fullscreen-btn {
-    position: fixed;
-    top: 12px;
-    right: 58px;
-    z-index: 9999;
+.top-btn {
     background: rgba(255, 255, 255, 0.88);
     border: none;
     font-size: 16px;
-    padding: 8px 11px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     backdrop-filter: blur(5px);
-    transition: transform 0.2s ease, background 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
 }
-.fullscreen-btn:hover { transform: scale(1.1); }
-.fullscreen-btn:active { transform: scale(0.95); }
+
+.top-btn:hover {
+    transform: scale(1.1);
+}
+
+.top-btn:active {
+    transform: scale(0.95);
+}
+
+body.dark-mode .top-btn {
+    background: rgba(40, 42, 60, 0.88);
+    color: #ffffff;
+}
 
 /* 💕 CORAZONES FLOTANTES */
 .floating-hearts-container {
@@ -135,7 +135,7 @@ body {
     left: 0;
     transform-origin: left center;
     transform-style: preserve-3d;
-    transition: transform var(--paper-speed) cubic-bezier(.645,.045,.355,1), opacity 0.3s ease;
+    transition: transform var(--paper-speed) cubic-bezier(.645,.045,.355,1);
     border-radius: var(--paper-radius);
     cursor: pointer;
     will-change: transform;
@@ -412,6 +412,20 @@ body {
     pointer-events: auto !important;
 }
 
+/* BOTÓN SORPRESA CORREGIDO */
+.surprise-btn {
+    position: relative;
+    z-index: 1000 !important;
+    pointer-events: auto !important;
+    background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+    color: white; border: none; padding: 10px 18px; border-radius: 25px;
+    font-size: 11.5px; font-weight: bold; cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4); transition: transform 0.2s ease;
+    margin-top: 10px;
+}
+.surprise-btn:hover { transform: scale(1.05); }
+.surprise-btn:active { transform: scale(0.98); }
+
 /* CONTROLES */
 .controls { margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; width: min(100%, 380px); z-index: 10; }
 button { border: none; background: #ffffff; color: #333; padding: 9px 15px; border-radius: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.20); transition: transform .2s; font-size: 11.5px; }
@@ -427,39 +441,8 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-/* RESPONSIVE Y MEJORAS EN CELULAR */
-@media (max-width: 600px) {
-    :root {
-        --book-width: clamp(260px, 82vw, 320px);
-        --book-height: clamp(380px, 64vh, 460px);
-    }
-
-    .scene {
-        overflow: hidden;
-    }
-
-    /* Oculta las páginas intermedias volteadas para evitar desbordes */
-    .paper.flipped:not(#p10) {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    /* La página 10 / contraportada se muestra centrada al voltearse */
-    #p10.flipped {
-        opacity: 1;
-        pointer-events: auto;
-        transform: rotateY(0deg) !important;
-    }
-
-    #p10.flipped .back {
-        z-index: 10;
-        transform: rotateY(0deg) !important;
-    }
-
-    #p10.flipped .front {
-        display: none;
-    }
-
+/* RESPONSIVE CELULARES PEQUEÑOS */
+@media (max-width: 480px) {
     .cover h2 { font-size: 18px; }
     .page-content h3 { font-size: 14.5px; }
     .cover p, .page-content p { font-size: 10.5px; }
