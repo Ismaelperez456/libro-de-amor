@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Nuestra Historia a Distancia ❤️</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia 📖</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+<body>
 
-<body class="book-page">
+    <!-- 🌙 BOTÓN MODO NOCHE / DÍA -->
+    <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">🌙</button>
 
-  <!-- 💕 CORAZONES Y ESTRELLAS FLOTANTES DE FONDO -->
-  <div class="floating-hearts-container" id="hearts-container"></div>
+    <!-- ⛶ BOTÓN PANTALLA COMPLETA -->
+    <button id="fullscreen-btn" class="fullscreen-btn" aria-label="Pantalla completa">
+        <span id="fullscreen-icon">⛶</span>
+    </button>
 
-  <!-- 🌙 BOTÓN MODO NOCHE / DÍA -->
-  <button id="theme-toggle" class="theme-btn" type="button" aria-label="Cambiar tema">🌙</button>
+    <!-- 💕 CONTENEDOR DE CORAZONES FLOTANTES -->
+    <div id="hearts-container" class="floating-hearts-container"></div>
 
-  <!-- ✨ PANTALLA DE INICIO / BIENVENIDA -->
-  <div class="welcome-screen" id="welcome-screen">
-    <div class="welcome-card">
-      <div class="welcome-icon">🌎✨</div>
-      <h1>Nuestra Historia</h1>
-      <p>Cerca de corazón, sin importar los kilómetros.</p>
-      <button id="start-btn" class="start-btn" type="button">✨ Abrir Libro ✨</button>
+    <!-- 🎵 BOTÓN Y AUDIO DE MÚSICA -->
+    <div class="music-control">
+        <button id="music-btn" class="music-button">
+            <div class="equalizer">
+                <span class="bar bar1"></span>
+                <span class="bar bar2"></span>
+                <span class="bar bar3"></span>
+            </div>
+            <span id="music-text">Música</span>
+        </button>
+        <audio id="background-music" loop src="musica.mp3"></audio>
     </div>
-  </div>
 
-  <!-- 📖 LIBRO INTERACTIVO DE 10 HOJAS -->
+    <!-- 🌟 PANTALLA DE BIENVENIDA -->
+    <div id="welcome-screen" class="welcome-screen">
+        <div class="welcome-card">
+            <div class="welcome-icon">📖</div>
+            <h2>Nuestra Historia</h2>
+            <p>Un pequeño rincón lleno de recuerdos y momentos especiales.</p>
+            <button id="start-btn" class="start-btn">Abrir Libro ❤️</button>
+        </div>
+    </div>
+
+   <!-- 📖 LIBRO INTERACTIVO DE 10 HOJAS -->
   <div class="scene">
     <div class="book" id="book">
 
@@ -352,76 +368,49 @@
             <div class="sparkles-container">✈️ ♡ ✨</div>
             <h2>Nuestra Historia continúa...</h2>
             <span class="cover-line"></span>
+            <button id="final-surprise-btn" class="surprise-btn" type="button">💌 Abrir última sorpresa</button>
           </div>
         </div>
       </div>
 
     </div>
   </div>
-
-  <!-- 🔐 MODALES INTERACTIVOS -->
-
-  <!-- Modal Polaroid (Lightbox) -->
-  <div class="secret-modal" id="photo-modal">
-    <div class="secret-modal-content photo-modal-content">
-      <span class="close-modal" id="close-photo-modal">&times;</span>
-      <img id="modal-img" src="" alt="Ampliada">
-      <p id="modal-caption" class="modal-caption-text"></p>
+    <!-- CONTROLES -->
+    <div class="controls">
+        <button id="prev-btn" disabled>← Anterior</button>
+        <span id="page-counter">0 / 10</span>
+        <button id="next-btn">Siguiente →</button>
     </div>
-  </div>
 
-  <!-- Modal Tarjetas Interactivas / Futuro -->
-  <div class="secret-modal" id="future-modal">
-    <div class="secret-modal-content">
-      <span class="close-modal" id="close-future-modal">&times;</span>
-      <div id="future-modal-icon" style="font-size: 36px; margin-bottom: 6px;"></div>
-      <p id="future-modal-msg" style="font-size: 13px; font-weight: 600; color: #4b3340;"></p>
+    <!-- MODAL POLAROID LIGHTBOX -->
+    <div id="photo-modal" class="secret-modal">
+        <div class="secret-modal-content photo-modal-content">
+            <span id="close-photo-modal" class="close-modal">&times;</span>
+            <img id="modal-img" src="" alt="Ampliada">
+            <p id="modal-caption" class="modal-caption-text"></p>
+        </div>
     </div>
-  </div>
 
-  <!-- Modal Secreto / Easter Egg Principal -->
-  <div class="secret-modal" id="secret-modal">
-    <div class="secret-modal-content">
-      <span class="close-modal" id="close-modal">&times;</span>
-      <h3>✨ ¡Encontraste el mensaje secreto! ✨</h3>
-      <p>Aunque los mapas digan una cosa, mi corazón siempre sabe hacia dónde mirar. Gracias por estar del otro lado apoyándome y amándome con tanta dedicación. Te amo infinitamente. ❤️</p>
+    <!-- MODAL DE PLANES / FUTURO -->
+    <div id="future-modal" class="secret-modal">
+        <div class="secret-modal-content">
+            <span id="close-future-modal" class="close-modal">&times;</span>
+            <div id="future-modal-icon" style="font-size: 32px; margin-bottom: 6px;">✨</div>
+            <p id="future-modal-msg"></p>
+        </div>
     </div>
-  </div>
 
-  <!-- Modal Gran Sorpresa Final -->
-  <div class="secret-modal" id="surprise-modal">
-    <div class="secret-modal-content surprise-content">
-      <span class="close-modal" id="close-surprise-modal">&times;</span>
-      <div class="surprise-badge">💖 Para Vos 💖</div>
-      <h3>Promesa de Reencuentro</h3>
-      <p class="surprise-text">"No importa el tiempo ni los kilómetros que falten por recorrer. Siempre voy a estar acá para recordarte lo mucho que vales, para elegirte cada mañana y para esperar el día en que nos abracemos fuerte y no tengamos que decirnos adiós."</p>
-      <div class="final-heart-burst">✈️ ❤️ 🌍</div>
+    <!-- MODAL DE SECRETOS -->
+    <div id="secret-modal" class="secret-modal">
+        <div class="secret-modal-content surprise-content">
+            <span id="close-modal" class="close-modal">&times;</span>
+            <span class="surprise-badge">¡SECRETO DESBLOQUEADO!</span>
+            <h3>Un Recuerdo Especial 💖</h3>
+            <p class="surprise-text">Sos la persona más especial del mundo y cada detalle tuyo hace que me enamore un poco más todos los días.</p>
+            <div class="final-heart-burst">❤️ ✨ 🌸</div>
+        </div>
     </div>
-  </div>
 
-  <!-- CONTROLES DE NAVEGACIÓN -->
-  <div class="controls">
-    <button id="prev-btn" type="button">⬅ Anterior</button>
-    <span id="page-counter">0 / 10</span>
-    <button id="next-btn" type="button">Siguiente ➡</button>
-  </div>
-
-  <!-- 🎵 CONTROL DE MÚSICA -->
-  <div class="music-control">
-    <audio id="background-music" loop preload="auto">
-      <source src="musica/cancion.mp3" type="audio/mpeg">
-    </audio>
-    <button id="music-btn" class="music-button" type="button">
-      <span class="equalizer">
-        <span class="bar bar1"></span>
-        <span class="bar bar2"></span>
-        <span class="bar bar3"></span>
-      </span>
-      <span id="music-text">🎵 Música</span>
-    </button>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>

@@ -163,7 +163,6 @@ function updatePages() {
     }
 }
 
-// Recalcular posicionamiento al rotar el celular o cambiar tamaño
 window.addEventListener("resize", updatePages);
 
 function finishAnimation() {
@@ -192,7 +191,6 @@ function prevPage() {
 if (nextBtn) nextBtn.addEventListener("click", nextPage);
 if (prevBtn) prevBtn.addEventListener("click", prevPage);
 
-// Navegación por clics directos
 papers.forEach((paper, index) => {
     if (!paper) return;
     paper.addEventListener("click", (e) => {
@@ -245,6 +243,66 @@ function handleSwipe() {
         prevPage();
     }
 }
+
+/* =========================
+   ⛶ MODO PANTALLA COMPLETA (FULLSCREEN)
+========================= */
+const fullscreenBtn = document.getElementById("fullscreen-btn");
+const fullscreenIcon = document.getElementById("fullscreen-icon");
+
+function toggleFullscreen() {
+    const doc = document.documentElement;
+
+    const isFullscreen = document.fullscreenElement || 
+                         document.webkitFullscreenElement || 
+                         document.mozFullScreenElement || 
+                         document.msFullscreenElement;
+
+    if (!isFullscreen) {
+        if (doc.requestFullscreen) {
+            doc.requestFullscreen();
+        } else if (doc.webkitRequestFullscreen) {
+            doc.webkitRequestFullscreen();
+        } else if (doc.mozRequestFullScreen) {
+            doc.mozRequestFullScreen();
+        } else if (doc.msRequestFullscreen) {
+            doc.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+
+function updateFullscreenIcon() {
+    const isFullscreen = document.fullscreenElement || 
+                         document.webkitFullscreenElement || 
+                         document.mozFullScreenElement || 
+                         document.msFullscreenElement;
+
+    if (fullscreenIcon) {
+        fullscreenIcon.textContent = isFullscreen ? "🗗" : "⛶";
+    }
+}
+
+if (fullscreenBtn) {
+    fullscreenBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleFullscreen();
+    });
+}
+
+document.addEventListener("fullscreenchange", updateFullscreenIcon);
+document.addEventListener("webkitfullscreenchange", updateFullscreenIcon);
+document.addEventListener("mozfullscreenchange", updateFullscreenIcon);
+document.addEventListener("MSFullscreenChange", updateFullscreenIcon);
 
 /* =========================
    🌙 MODO NOCHE / DÍA
