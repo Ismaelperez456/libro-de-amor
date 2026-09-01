@@ -98,6 +98,7 @@ function asegurarMusica() {
         music.play().then(() => updateMusicUI()).catch(() => {});
     }
 }
+
 if (startBtn) {
     startBtn.addEventListener("click", () => {
 
@@ -146,11 +147,22 @@ function updatePages() {
     });
 
     if (book) {
-        if (currentLocation === 0) book.style.transform = "translateX(0%)";
-        else if (currentLocation >= TOTAL_PAGES) book.style.transform = "translateX(50%)";
-        else book.style.transform = "translateX(50%)";
+        const isMobile = window.innerWidth <= 600;
+        
+        if (isMobile) {
+            // En celular se mantiene centrado siempre
+            book.style.transform = "translateX(0%)";
+        } else {
+            // En pantallas grandes se desplaza como libro abierto
+            if (currentLocation === 0) book.style.transform = "translateX(0%)";
+            else if (currentLocation >= TOTAL_PAGES) book.style.transform = "translateX(50%)";
+            else book.style.transform = "translateX(50%)";
+        }
     }
 }
+
+// Recalcular posicionamiento al rotar el celular o cambiar tamaño
+window.addEventListener("resize", updatePages);
 
 function finishAnimation() {
     isAnimating = false;
@@ -178,7 +190,7 @@ function prevPage() {
 if (nextBtn) nextBtn.addEventListener("click", nextPage);
 if (prevBtn) prevBtn.addEventListener("click", prevPage);
 
-// Navegación por clics directos y teclado
+// Navegación por clics directos
 papers.forEach((paper, index) => {
     if (!paper) return;
     paper.addEventListener("click", (e) => {
@@ -263,7 +275,7 @@ function createFloatingHeart() {
 setInterval(createFloatingHeart, 1100);
 
 /* =========================
-   💌 CARTA MÁQUINA DE ESCRIBIR (ENFOQUE DISTANCIA)
+   💌 CARTA MÁQUINA DE ESCRIBIR
 ========================= */
 const envelope = document.getElementById("envelope");
 const typewriterText = document.getElementById("typewriter-text");
@@ -401,4 +413,3 @@ function checkAllSecrets() {
 if (closeModal && secretModal) {
     closeModal.addEventListener("click", () => secretModal.classList.remove("show"));
 }
-
