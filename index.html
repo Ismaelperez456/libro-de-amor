@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nuestra Historia a Distancia ❤️</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="book-page">
+
+  <!-- 💕 CORAZONES Y ESTRELLAS FLOTANTES DE FONDO -->
+  <div class="floating-hearts-container" id="hearts-container"></div>
+
+  <!-- 🌙 BOTÓN MODO NOCHE / DÍA -->
+  <button id="theme-toggle" class="theme-btn" type="button" aria-label="Cambiar tema">🌙</button>
+
+  <!-- ✨ PANTALLA DE INICIO / BIENVENIDA -->
+  <div class="welcome-screen" id="welcome-screen">
+    <div class="welcome-card">
+      <div class="welcome-icon">🌎✨</div>
+      <h1>Nuestra Historia</h1>
+      <p>Cerca de corazón, sin importar los kilómetros.</p>
+      <button id="start-btn" class="start-btn" type="button">✨ Abrir Libro ✨</button>
+    </div>
+  </div>
+
+  <!-- 📖 LIBRO INTERACTIVO DE 10 HOJAS -->
+  <div class="scene">
+    <div class="book" id="book">
+
+      <!-- PÁGINA 1 — PORTADA -->
+      <div class="paper" id="p1">
+        <div class="front">
+          <div class="cover">
+            <span class="badge">✈️ Amor a Distancia</span>
+            <img src="imagenes/portada.png" alt="Nuestra Historia" class="photo-effect photo-fade">
+            <div class="cover-text">
+              <h2>Nuestra Historia ❤️</h2>
+              <p>Un libro sobre nosotros y nuestros kilómetros</p>
+              <span class="cover-line"></span>
+              <small>Escribiendo nuestro camino juntos</small>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">2</span>
+            <h3>Cerca en la distancia ✨</h3>
+            <p>Aunque nos separan kilómetros, cada día nos volvemos a elegir y seguimos construyendo lo nuestro con la misma ilusión.</p>
+            <div class="decorative-icon">📱 💖 ✈️</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 2 — CARTA DE AMOR -->
+      <div class="paper" id="p2">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">3</span>
+            <h3>Una carta desde lejos 💌</h3>
+            <p style="font-size: 11px; margin-bottom: 6px;">Toca el sobre para abrirlo</p>
+            <div class="envelope-wrapper" id="envelope-wrapper">
+              <div class="envelope" id="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-letter" id="envelope-letter">
+                  <p id="typewriter-text"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">4</span>
+            <div class="polaroid-card photo-zoom interactable-photo" data-img="imagenes/imagen 2.png" data-caption="Un pedacito de nosotros que acorta cualquier distancia.">
+              <img src="imagenes/imagen 2.png" alt="Noche juntos">
+              <span class="photo-hint">🔍 Toca para ampliar</span>
+            </div>
+            <h3>Tu sonrisa a través de la pantalla 📱</h3>
+            <p>Hay fotos y llamadas que llenan el día y nos hacen sentir que el mundo es un lugar más chiquito.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 3 — CÓMO COMENZÓ TODO -->
+      <div class="paper" id="p3">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">5</span>
+            <h3>El inicio de nuestra historia 🌱</h3>
+            <div class="polaroid-card photo-rotate interactable-photo" data-img="imagenes/imagen3.png" data-caption="El comienzo de este camino compartido a pesar de los mapas.">
+              <img src="imagenes/imagen3.png" alt="Cómo comenzó todo">
+            </div>
+            <p class="story-intro">Aquel día aprendimos que la conexión no sabe de mapas ni de fronteras, solo de dos personas queriéndose coincidir.</p>
+            <div class="editable-date-badge" id="start-date-display">28 de Marzo de 2026</div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">6</span>
+            <h3>La magia de encontrarnos 🌸</h3>
+            <p>Desde el primer momento entendimos que esta distancia valía completamente la pena por lo que sentimos.</p>
+            <span class="secret-element" data-secret="1" title="¿Un secreto?">✨</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 4 — NUESTROS RECUERDOS -->
+      <div class="paper" id="p4">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">7</span>
+            <h3>Momentos Compartidos 📸</h3>
+            <p style="font-size: 11px; margin-bottom: 8px;">Toca las fotos para recordar</p>
+            <div class="memories-grid">
+              <div class="polaroid-card photo-fade interactable-photo" data-img="imagenes/imagen 5.png" data-caption="Risas compartidas en nuestros encuentros.">
+                <img src="imagenes/imagen 5.png" alt="Recuerdo 1">
+              </div>
+              <div class="polaroid-card photo-zoom interactable-photo" data-img="imagenes/imagen 7.png" data-caption="Abrazos guardados para cuando nos volvamos a ver.">
+                <img src="imagenes/imagen 7.png" alt="Recuerdo 2">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">8</span>
+            <div class="polaroid-card photo-rotate interactable-photo" data-img="imagenes/imagen9.png" data-caption="Cada viaje y reencuentro es el mejor regalo.">
+              <img src="imagenes/imagen9.png" alt="Recuerdo 3">
+              <span class="photo-hint">🔍 Toca para ampliar</span>
+            </div>
+            <h3>Guardando abrazos 💖</h3>
+            <p>Cada recuerdo con vos es el impulso para seguir contando los días hasta vernos de nuevo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 5 — RAZONES POR LAS QUE TE AMO -->
+      <div class="paper" id="p5">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">9</span>
+            <h3>Razones para elegirte cada día 🥰</h3>
+            <p style="font-size: 11px; margin-bottom: 6px;">Toca cada corazón para descubrir una razón</p>
+            <div class="reasons-container">
+              <div class="reason-item">
+                <button class="reason-heart" type="button">❤️</button>
+                <span class="reason-text">Por hacerme sentir cerca aun estando lejos.</span>
+              </div>
+              <div class="reason-item">
+                <button class="reason-heart" type="button">💖</button>
+                <span class="reason-text">La tranquilidad de escuchar tu voz en cada llamada.</span>
+              </div>
+              <div class="reason-item">
+                <button class="reason-heart" type="button">💕</button>
+                <span class="reason-text">Tus mensajes mañaneros que alegran mis días.</span>
+              </div>
+              <div class="reason-item">
+                <button class="reason-heart" type="button">💗</button>
+                <span class="reason-text">El compromiso con el que cuidamos este amor.</span>
+              </div>
+              <div class="reason-item">
+                <button class="reason-heart" type="button">💓</button>
+                <span class="reason-text">Porque sos mi lugar seguro, esté donde esté.</span>
+              </div>
+              <div class="reason-item">
+                <button class="reason-heart" type="button">💘</button>
+                <span class="reason-text">Por la ilusión compartida de nuestro futuro juntos.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">10</span>
+            <div class="polaroid-card photo-fade interactable-photo" data-img="imagenes/imagen10.png" data-caption="A tu lado en pensamiento y corazón.">
+              <img src="imagenes/imagen10.png" alt="Razones">
+            </div>
+            <h3>Mi persona favorita 🌍</h3>
+            <p>Mi lugar favorito en el mundo sigue siendo a tu lado, incluso cuando la distancia nos separa.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 6 — MIS PROMESAS PARA VOS -->
+      <div class="paper" id="p6">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">11</span>
+            <h3>Mis Promesas Para Vos 🤍</h3>
+            <p style="font-size: 11px; margin-bottom: 6px;">Toca las tarjetas para revelarlas</p>
+            <div class="promises-container">
+              <div class="promise-card">
+                <span class="promise-star">⭐</span>
+                <p class="promise-text">Estar presente en tu vida, apoyándote sin importar los kilómetros.</p>
+              </div>
+              <div class="promise-card">
+                <span class="promise-star">🌟</span>
+                <p class="promise-text">Hacerte saber todos los días lo importante que sos para mí.</p>
+              </div>
+              <div class="promise-card">
+                <span class="promise-star">✨</span>
+                <p class="promise-text">Seguir trabajando juntos para el día en que no haya distancia.</p>
+              </div>
+              <div class="promise-card">
+                <span class="promise-star">💫</span>
+                <p class="promise-text">Escucharte y acompañarte en tus días buenos y en los difíciles.</p>
+              </div>
+              <div class="promise-card">
+                <span class="promise-star">🌙</span>
+                <p class="promise-text">Guardar cada abrazo y beso para cuando nos volvamos a ver.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">12</span>
+            <div class="polaroid-card photo-zoom interactable-photo" data-img="imagenes/imagen11.png" data-caption="La distancia es temporal, lo que sentimos es para siempre.">
+              <img src="imagenes/imagen11.png" alt="Promesas">
+            </div>
+            <h3>Cuenta regresiva 🌙</h3>
+            <p>Cada día que pasa es un día menos para volver a apretar nuestras manos.</p>
+            <span class="secret-element" data-secret="2" title="¿Otro secreto?">🌸</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 7 — CUANDO ESTEMOS JUNTOS -->
+      <div class="paper" id="p7">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">13</span>
+            <h3>Cuando Estemos Juntos ✈️</h3>
+            <p style="font-size: 11px; margin-bottom: 6px;">Nuestros planes para cuando al fin nos encontremos</p>
+            <div class="bucket-list">
+              <div class="bucket-item" data-msg="Armar las valijas sin fecha de regreso y vivir nuestro primer gran viaje juntos."><span>✈️</span> Nuestro primer viaje juntos</div>
+              <div class="bucket-item" data-msg="Caminar sin apuro y ver un atardecer juntos algún día."><span>🌅</span> Ver un atardecer juntos</div>
+              <div class="bucket-item" data-msg="Cocinar juntos cuando finalmente estemos en el mismo lugar."><span>🍝</span> Cocinar en el mismo lugar</div>
+              <div class="bucket-item" data-msg="Disfrutar de maratones de películas sin preocuparnos por los horarios de llamada."><span>🎬</span> Tardes enteras de películas</div>
+              <div class="bucket-item" data-msg="Recorrer calles tomados de la mano y descubrir rincones nuevos."><span>🌎</span> Conocer lugares a la par</div>
+              <div class="bucket-item" data-msg="Pensar en el día a día sin mapas de por medio y construir nuestro hogar."><span>🏠</span> Construir nuestro hogar</div>
+              <div class="bucket-item" data-msg="Cerrar esta distancia de una vez por todas y poder abrazarnos sin prisa."><span>❤️</span> Cerrar esta distancia</div>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">14</span>
+            <div class="polaroid-card photo-rotate interactable-photo" data-img="imagenes/imagen12.png" data-caption="Soñando con los días que están por venir.">
+              <img src="imagenes/imagen12.png" alt="Planes juntos">
+            </div>
+            <h3>Sueños por cumplir 🎨</h3>
+            <p>Todo lo que hoy imaginamos, algún día lo vamos a vivir frente a frente.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 8 — NUESTRO FUTURO -->
+      <div class="paper" id="p8">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">15</span>
+            <h3>Nuestro Futuro ✨</h3>
+            <p style="font-size: 11px; margin-bottom: 6px;">Toca cada tarjeta para ver qué soñamos</p>
+            <div class="future-grid">
+              <div class="future-card" data-msg="Proyectos compartidos que crecen sin importar la distancia.">
+                <span class="future-icon">✨</span>
+                <span class="future-title">Nuestros sueños</span>
+              </div>
+              <div class="future-card" data-msg="Los pasajes de avión que nos van a llevar al mismo lugar.">
+                <span class="future-icon">✈️</span>
+                <span class="future-title">Próximos viajes</span>
+              </div>
+              <div class="future-card" data-msg="El espacio que algún día compartiremos sin pantallas.">
+                <span class="future-icon">🏠</span>
+                <span class="future-title">Un mismo hogar</span>
+              </div>
+              <div class="future-card" data-msg="La cotidianidad de despertar en la misma ciudad.">
+                <span class="future-icon">❤️</span>
+                <span class="future-title">Vida juntos</span>
+              </div>
+              <div class="future-card" data-msg="Caminos por recorrer tomados finalmente de la mano.">
+                <span class="future-icon">🌎</span>
+                <span class="future-title">Destinos</span>
+              </div>
+              <div class="future-card" data-msg="El reencuentro definitivo que estamos construyendo.">
+                <span class="future-icon">💍</span>
+                <span class="future-title">El reencuentro</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">16</span>
+            <h3>Lo mejor está por venir ✨</h3>
+            <p>Hoy estamos lejos, pero cada esfuerzo nos acerca al momento en que la distancia sea solo un recuerdo.</p>
+            <span class="secret-element" data-secret="3" title="¿El último secreto?">⭐</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 9 — PÁGINA SECRETA -->
+      <div class="paper" id="p9">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">17</span>
+            <h3>Rincón Secreto 🔐</h3>
+            <p>Detalles ocultos para alguien que siempre está atenta desde la distancia...</p>
+            <div class="secret-tracker">
+              <p>Objetos secretos encontrados:</p>
+              <div class="secret-counter-badges">
+                <span class="badge-dot" id="secret-badge-1">✨</span>
+                <span class="badge-dot" id="secret-badge-2">🌸</span>
+                <span class="badge-dot" id="secret-badge-3">⭐</span>
+                <span class="badge-dot" id="secret-badge-4">🤍</span>
+              </div>
+            </div>
+            <div class="hidden-heart-wrapper">
+              <span id="easter-egg" class="secret-heart" title="El secreto principal">🤍</span>
+              <p style="font-size: 10px; opacity: 0.7;">(Toca el corazón de arriba)</p>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="page-content">
+            <span class="page-number">18</span>
+            <div class="polaroid-card photo-fade interactable-photo" data-img="imagenes/imagen13.png" data-caption="Siempre nosotros, recortando distancias.">
+              <img src="imagenes/imagen13.png" alt="Siempre nosotros">
+            </div>
+            <h3>Un amor que trasciende mapas 💕</h3>
+            <p>Cada mensaje, llamada y detalle nos demuestra lo valioso de lo que tenemos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁGINA 10 — GRAN FINAL -->
+      <div class="paper" id="p10">
+        <div class="front">
+          <div class="page-content">
+            <span class="page-number">19</span>
+            <div class="sparkles-container">✨ 🌎 ✨</div>
+            <h3>La distancia no es el final... ❤️</h3>
+            <p class="final-quote">"Hoy nos separan kilómetros, pero seguimos construyendo algo hermoso que algún día vamos a poder vivir sin una pantalla de por medio."</p>
+          </div>
+        </div>
+        <div class="back">
+          <div class="cover back-cover">
+            <div class="sparkles-container">✈️ ♡ ✨</div>
+            <h2>Nuestra Historia continúa...</h2>
+            <span class="cover-line"></span> on">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🔐 MODALES INTERACTIVOS -->
+
+  <!-- Modal Polaroid (Lightbox) -->
+  <div class="secret-modal" id="photo-modal">
+    <div class="secret-modal-content photo-modal-content">
+      <span class="close-modal" id="close-photo-modal">&times;</span>
+      <img id="modal-img" src="" alt="Ampliada">
+      <p id="modal-caption" class="modal-caption-text"></p>
+    </div>
+  </div>
+
+  <!-- Modal Tarjetas Interactivas / Futuro -->
+  <div class="secret-modal" id="future-modal">
+    <div class="secret-modal-content">
+      <span class="close-modal" id="close-future-modal">&times;</span>
+      <div id="future-modal-icon" style="font-size: 36px; margin-bottom: 6px;"></div>
+      <p id="future-modal-msg" style="font-size: 13px; font-weight: 600; color: #4b3340;"></p>
+    </div>
+  </div>
+
+  <!-- Modal Secreto / Easter Egg Principal -->
+  <div class="secret-modal" id="secret-modal">
+    <div class="secret-modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <h3>✨ ¡Encontraste el mensaje secreto! ✨</h3>
+      <p>Aunque los mapas digan una cosa, mi corazón siempre sabe hacia dónde mirar. Gracias por estar del otro lado apoyándome y amándome con tanta dedicación. Te amo infinitamente. ❤️</p>
+    </div>
+  </div>
+
+  <!-- Modal Gran Sorpresa Final -->
+  <div class="secret-modal" id="surprise-modal">
+    <div class="secret-modal-content surprise-content">
+      <span class="close-modal" id="close-surprise-modal">&times;</span>
+      <div class="surprise-badge">💖 Para Vos 💖</div>
+      <h3>Promesa de Reencuentro</h3>
+      <p class="surprise-text">"No importa el tiempo ni los kilómetros que falten por recorrer. Siempre voy a estar acá para recordarte lo mucho que vales, para elegirte cada mañana y para esperar el día en que nos abracemos fuerte y no tengamos que decirnos adiós."</p>
+      <div class="final-heart-burst">✈️ ❤️ 🌍</div>
+    </div>
+  </div>
+
+  <!-- CONTROLES DE NAVEGACIÓN -->
+  <div class="controls">
+    <button id="prev-btn" type="button">⬅ Anterior</button>
+    <span id="page-counter">0 / 10</span>
+    <button id="next-btn" type="button">Siguiente ➡</button>
+  </div>
+
+  <!-- 🎵 CONTROL DE MÚSICA -->
+  <div class="music-control">
+    <audio id="background-music" loop preload="auto">
+      <source src="musica/cancion.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" class="music-button" type="button">
+      <span class="equalizer">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar3"></span>
+      </span>
+      <span id="music-text">🎵 Música</span>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
