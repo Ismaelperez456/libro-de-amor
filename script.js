@@ -101,9 +101,7 @@ function asegurarMusica() {
 
 if (startBtn) {
     startBtn.addEventListener("click", () => {
-
         setInitialCover();
-
         asegurarMusica();
 
         if (welcomeScreen) {
@@ -150,7 +148,7 @@ function updatePages() {
         const isMobile = window.innerWidth <= 600;
         
         if (isMobile) {
-            // En celular se mantiene centrado siempre
+            // En celular se mantiene centrado en todo momento, incluida la contraportada
             book.style.transform = "translateX(0%)";
         } else {
             // En pantallas grandes se desplaza como libro abierto
