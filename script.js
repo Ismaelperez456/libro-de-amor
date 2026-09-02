@@ -117,7 +117,6 @@ if (startBtn) {
     startBtn.addEventListener("click", () => {
         asegurarMusica();
 
-        // Solicitar pantalla completa automáticamente al ingresar
         const doc = window.document;
         const isFullScreen = doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement;
         if (!isFullScreen) {
@@ -153,6 +152,7 @@ function updatePages() {
     if (prevBtn) prevBtn.disabled = currentLocation === 0 || isAnimating;
     if (nextBtn) nextBtn.disabled = currentLocation === TOTAL_PAGES || isAnimating;
 
+    // Asignación estricta de apilamiento para garantizar que la portada (p1) esté siempre visible al inicio
     papers.forEach((paper, index) => {
         if (!paper) return;
         if (index < currentLocation) {
@@ -164,10 +164,16 @@ function updatePages() {
         }
     });
 
+    // En pantallas chicas (móviles) el libro no se desplaza a la derecha para no cortarse
     if (book) {
-        if (currentLocation === 0) book.style.transform = "translateX(0%)";
-        else if (currentLocation >= TOTAL_PAGES) book.style.transform = "translateX(50%)";
-        else book.style.transform = "translateX(50%)";
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            book.style.transform = "translateX(0%)";
+        } else {
+            if (currentLocation === 0) book.style.transform = "translateX(0%)";
+            else if (currentLocation >= TOTAL_PAGES) book.style.transform = "translateX(50%)";
+            else book.style.transform = "translateX(50%)";
+        }
     }
 }
 
@@ -197,10 +203,42 @@ function prevPage() {
 if (nextBtn) nextBtn.addEventListener("click", nextPage);
 if (prevBtn) prevBtn.addEventListener("click", prevPage);
 
-// Navegación por clics directos y teclado
+/* =========================
+   📱 SOPORTE TÁCTIL Y CLICS SEGUROS
+========================= */
+let touchStartX = 0;
+let touchEndX = 0;
+let isSwiping = false;
+
+if (book) {
+    book.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        isSwiping = false;
+    }, { passive: true });
+
+    book.addEventListener("touchmove", () => {
+        isSwiping = true;
+    }, { passive: true });
+
+    book.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+}
+
+function handleSwipe() {
+    const swipeThreshold = 40;
+    if (touchStartX - touchEndX > swipeThreshold) {
+        nextPage();
+    } else if (touchEndX - touchStartX > swipeThreshold) {
+        prevPage();
+    }
+}
+
 papers.forEach((paper, index) => {
     if (!paper) return;
     paper.addEventListener("click", (e) => {
+        if (isSwiping) return;
         if (e.target.closest('.envelope') || 
             e.target.closest('.reason-heart') || 
             e.target.closest('.promise-card') || 
@@ -225,31 +263,9 @@ window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") prevPage();
 });
 
-/* =========================
-   📱 SOPORTE DE GESTOS TÁCTILES (SWIPE EN MÓVIL)
-========================= */
-let touchStartX = 0;
-let touchEndX = 0;
-
-if (book) {
-    book.addEventListener("touchstart", (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    book.addEventListener("touchend", (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, { passive: true });
-}
-
-function handleSwipe() {
-    const swipeThreshold = 45;
-    if (touchStartX - touchEndX > swipeThreshold) {
-        nextPage();
-    } else if (touchEndX - touchStartX > swipeThreshold) {
-        prevPage();
-    }
-}
+window.addEventListener("resize", () => {
+    updatePages();
+});
 
 /* =========================
    🌙 MODO NOCHE / DÍA
@@ -282,7 +298,7 @@ function createFloatingHeart() {
 setInterval(createFloatingHeart, 1100);
 
 /* =========================
-   💌 CARTA MÁQUINA DE ESCRIBIR (ENFOQUE DISTANCIA)
+   💌 CARTA MÁQUINA DE ESCRIBIR
 ========================= */
 const envelope = document.getElementById("envelope");
 const typewriterText = document.getElementById("typewriter-text");
@@ -433,6 +449,7 @@ function abrirSorpresaFinal(e) {
         e.stopPropagation();
         e.preventDefault();
     }
+
     if (surpriseModal) {
         surpriseModal.classList.add("show");
         for (let i = 0; i < 20; i++) {
@@ -443,7 +460,6 @@ function abrirSorpresaFinal(e) {
 
 if (finalSurpriseBtn) {
     finalSurpriseBtn.addEventListener("click", abrirSorpresaFinal);
-    finalSurpriseBtn.addEventListener("touchend", abrirSorpresaFinal);
 }
 
 if (closeSurpriseModal && surpriseModal) {
@@ -453,15 +469,15 @@ if (closeSurpriseModal && surpriseModal) {
     });
 }
 
-// Cierre global de modales haciendo clic fuera del contenido
+// Cierre al tocar fuera de cualquier modal
 window.addEventListener("click", (e) => {
     if (e.target.classList.contains("secret-modal")) {
         e.target.classList.remove("show");
     }
 });
 
-window.addEventListener("load", () => {
-    updatePages();
-    updateMusicUI();
-    updateFullscreenUI();
-});
+/* ============================================================
+   🚀 INICIALIZACIÓN INMEDIATA DE LA PORTADA
+============================================================ */
+updatePages();
+document.addEventListener("DOMContentLoaded", updatePages);
