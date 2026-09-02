@@ -7,7 +7,7 @@
 
 :root {
     --book-width: min(90vw, 340px);
-    --book-height: clamp(390px, 68dvh, 500px);
+    --book-height: clamp(420px, 70dvh, 520px);
     --paper-radius: 12px;
     --paper-speed: .82s;
 
@@ -197,24 +197,28 @@ body.dark-mode .top-btn {
 .front .page-number { right: 8px; }
 .back .page-number { left: 8px; }
 
-/* 📸 POLAROIDS */
+/* 📸 POLAROIDS Y FOTOS */
 .polaroid-card {
     background: #fff;
-    padding: 4px 4px 10px 4px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.14);
-    border-radius: 4px;
-    margin-bottom: 5px;
-    width: 88%;
+    padding: 5px 5px 10px 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    width: 90%;
     transition: transform 0.3s ease;
     cursor: pointer;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .polaroid-card img {
     width: 100%;
-    height: clamp(100px, 18vh, 150px);
+    aspect-ratio: 4 / 3;
+    max-height: 170px;
     object-fit: cover;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 .photo-hint {
@@ -228,18 +232,23 @@ body.dark-mode .top-btn {
 .memories-grid {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
     width: 100%;
     align-items: center;
 }
 
 .memories-grid .polaroid-card {
-    width: 82%;
+    width: 88%;
+    padding: 5px 5px 8px 5px;
     margin-bottom: 0;
 }
 
 .memories-grid .polaroid-card img {
-    height: clamp(75px, 12vh, 95px);
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 115px;
+    height: auto;
+    object-fit: cover;
 }
 
 .photo-zoom { transform: scale(0.96); }
@@ -349,7 +358,7 @@ body.dark-mode .top-btn {
 
 @keyframes glow { 0% { opacity: 0.5; filter: drop-shadow(0 0 2px #ff8da1); } 100% { opacity: 1; filter: drop-shadow(0 0 7px #ff8da1); } }
 
-/* 🔐 MODALES GENERALES */
+/* 🔐 MODALES */
 .secret-modal {
     position: fixed; inset: 0; width: 100vw; height: 100vh;
     background: rgba(0,0,0,0.72); display: flex; justify-content: center; align-items: center;
@@ -403,7 +412,8 @@ body.dark-mode .top-btn {
 }
 .cover img.photo-effect {
     width: 86%;
-    height: clamp(120px, 22vh, 175px);
+    aspect-ratio: 4 / 3;
+    max-height: 180px;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -451,17 +461,26 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-/* RESPONSIVE PARA SMARTPHONES */
-@media (max-width: 480px) {
+/* RESPONSIVE MÓVIL FORZADO (CENTRADO ABSOLUTO Y DIMENSIONES) */
+@media (max-width: 768px) {
     :root {
         --book-width: 88vw;
-        --book-height: clamp(380px, 67dvh, 460px);
+        --book-height: clamp(400px, 68dvh, 480px);
     }
+
+    .scene {
+        overflow: visible;
+        justify-content: center;
+    }
+
+    #book, .book {
+        transform: translateX(0%) !important;
+        margin: 0 auto;
+    }
+
     .cover h2 { font-size: 16.5px; }
     .page-content h3 { font-size: 13.5px; }
     .cover p, .page-content p { font-size: 10px; }
-    .cover img.photo-effect { height: clamp(110px, 20vh, 150px); }
-    .polaroid-card img { height: clamp(95px, 16vh, 130px); }
     .envelope { width: 155px; height: 98px; }
     .envelope-flap { border-left-width: 77.5px; border-right-width: 77.5px; border-top-width: 52px; }
     .envelope-letter { height: 88px; }

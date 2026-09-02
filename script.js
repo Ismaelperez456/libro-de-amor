@@ -53,7 +53,7 @@ function toggleFullScreen() {
     if (!isFullScreen) {
         if (requestFullScreen) {
             requestFullScreen.call(docEl).catch(err => {
-                console.log("Pantalla completa no disponible o denegada:", err);
+                console.log("Pantalla completa denegada:", err);
             });
         }
     } else {
@@ -120,7 +120,7 @@ if (startBtn) {
         const doc = window.document;
         const isFullScreen = doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement;
         if (!isFullScreen) {
-            const requestFS = doc.documentElement.requestFullscreen || doc.documentElement.webkitRequestFullScreen || doc.documentElement.mozRequestFullScreen || doc.documentElement.msRequestFullscreen;
+            const requestFS = doc.documentElement.requestFullscreen || doc.documentElement.webkitRequestFullScreen || doc.mozRequestFullScreen || doc.documentElement.msRequestFullscreen;
             if (requestFS) {
                 requestFS.call(doc.documentElement).catch(() => {});
             }
@@ -152,7 +152,6 @@ function updatePages() {
     if (prevBtn) prevBtn.disabled = currentLocation === 0 || isAnimating;
     if (nextBtn) nextBtn.disabled = currentLocation === TOTAL_PAGES || isAnimating;
 
-    // Asignación estricta de apilamiento para garantizar que la portada (p1) esté siempre visible al inicio
     papers.forEach((paper, index) => {
         if (!paper) return;
         if (index < currentLocation) {
@@ -164,7 +163,6 @@ function updatePages() {
         }
     });
 
-    // En pantallas chicas (móviles) el libro no se desplaza a la derecha para no cortarse
     if (book) {
         const isMobile = window.innerWidth <= 768;
         if (isMobile) {
@@ -204,7 +202,7 @@ if (nextBtn) nextBtn.addEventListener("click", nextPage);
 if (prevBtn) prevBtn.addEventListener("click", prevPage);
 
 /* =========================
-   📱 SOPORTE TÁCTIL Y CLICS SEGUROS
+   📱 SOPORTE TÁCTIL Y GESTOS
 ========================= */
 let touchStartX = 0;
 let touchEndX = 0;
@@ -278,7 +276,7 @@ if (themeToggle) {
 }
 
 /* =========================
-   💕 CORAZONES FLOTANTES DE FONDO
+   💕 CORAZONES FLOTANTES
 ========================= */
 function createFloatingHeart() {
     if (!heartsContainer) return;
@@ -327,7 +325,7 @@ if (envelope) {
 }
 
 /* =========================
-   📸 LIGHTBOX / AMPLIAR POLAROIDS
+   📸 LIGHTBOX / AMPLIAR FOTOS
 ========================= */
 const photoModal = document.getElementById("photo-modal");
 const modalImg = document.getElementById("modal-img");
@@ -371,7 +369,7 @@ document.querySelectorAll(".promise-card").forEach(card => {
 });
 
 /* =========================
-   ✈️ PLANES JUNTOS Y FUTURO (MODAL)
+   ✈️ PLANES JUNTOS Y FUTURO
 ========================= */
 const futureModal = document.getElementById("future-modal");
 const futureModalIcon = document.getElementById("future-modal-icon");
@@ -394,7 +392,7 @@ if (closeFutureModal && futureModal) {
 }
 
 /* =========================
-   🔐 SISTEMA DE SECRETOS (PÁGINA 9)
+   🔐 SECRETOS (PÁGINA 9)
 ========================= */
 const foundSecrets = new Set();
 const secretModal = document.getElementById("secret-modal");
@@ -438,7 +436,7 @@ if (closeModal && secretModal) {
 }
 
 /* =========================
-   💌 GRAN FINAL CINEMATOGRÁFICO (PÁGINA 10)
+   💌 SORPRESA FINAL (PÁGINA 10)
 ========================= */
 const finalSurpriseBtn = document.getElementById("final-surprise-btn");
 const surpriseModal = document.getElementById("surprise-modal");
@@ -469,7 +467,6 @@ if (closeSurpriseModal && surpriseModal) {
     });
 }
 
-// Cierre al tocar fuera de cualquier modal
 window.addEventListener("click", (e) => {
     if (e.target.classList.contains("secret-modal")) {
         e.target.classList.remove("show");
@@ -477,7 +474,7 @@ window.addEventListener("click", (e) => {
 });
 
 /* ============================================================
-   🚀 INICIALIZACIÓN INMEDIATA DE LA PORTADA
+   🚀 INICIALIZACIÓN
 ============================================================ */
 updatePages();
 document.addEventListener("DOMContentLoaded", updatePages);
